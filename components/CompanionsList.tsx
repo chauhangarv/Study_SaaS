@@ -23,7 +23,6 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps )
       <h2 className="font-bold text-3xl">Recent Sessions</h2>
 
       <Table>
-        More actions
         <TableHeader>
           <TableRow>
             <TableHead className="text-lg w-2/3">Lessons</TableHead>
