@@ -787,6 +787,10 @@
     height: var(--radix-select-trigger-height);
   }
 
+  .h-fit {
+    height: fit-content;
+  }
+
   .h-px {
     height: 1px;
   }
@@ -934,6 +938,10 @@
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
+  }
+
+  .border-black {
+    border-color: var(--color-black);
   }
 
   .border-input {
@@ -1508,6 +1516,12 @@
   @media (width < 48rem) {
     .max-md\:hidden {
       display: none;
+    }
+  }
+
+  @media (width < 40rem) {
+    .max-sm\:flex-col {
+      flex-direction: column;
     }
   }
 
