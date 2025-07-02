@@ -105,16 +105,25 @@ const createSupabaseClient = ()=>{
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-/* __next_internal_action_entry_do_not_use__ [{"7fa0ee05fef7917ebe176b3180dcae92f9daecd997":"createCompanion","7faf38d0c06bfe309988e06f76f373af56089c8fed":"getCompanion","7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7":"getAllCompanions"},"",""] */ __turbopack_context__.s({
+/* __next_internal_action_entry_do_not_use__ [{"7f213816560294baa41f06e9f54700a51bff4fb9e6":"addToSessionHistory","7f3f2a007e749f9cc6430c9fc98b9b5bbad7c4bd6f":"removeBookmark","7f4a0d95a31319119375439d32d475c248c2894018":"getUserSessions","7f757a26b93efffcb69538f6402cb5bd39cb3cbf8e":"getBookmarkedCompanions","7f8fb7a67a27db6952c3f749a830a97d6ba1b2bb4a":"getUserCompanions","7f91bb29f8ca73721d6cfc7936f6491877a74ea2b6":"addBookmark","7f94de73e129f506cb16707f9ca1b7926f88c7f3f9":"getRecentSessions","7fa0ee05fef7917ebe176b3180dcae92f9daecd997":"createCompanion","7faf38d0c06bfe309988e06f76f373af56089c8fed":"getCompanion","7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7":"getAllCompanions"},"",""] */ __turbopack_context__.s({
+    "addBookmark": (()=>addBookmark),
+    "addToSessionHistory": (()=>addToSessionHistory),
     "createCompanion": (()=>createCompanion),
     "getAllCompanions": (()=>getAllCompanions),
-    "getCompanion": (()=>getCompanion)
+    "getBookmarkedCompanions": (()=>getBookmarkedCompanions),
+    "getCompanion": (()=>getCompanion),
+    "getRecentSessions": (()=>getRecentSessions),
+    "getUserCompanions": (()=>getUserCompanions),
+    "getUserSessions": (()=>getUserSessions),
+    "removeBookmark": (()=>removeBookmark)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/server-reference.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$app$2d$render$2f$encryption$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/app-render/encryption.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$nextjs$2f$dist$2f$esm$2f$app$2d$router$2f$server$2f$auth$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server/auth.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/supabase.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/cache.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-validate.js [app-rsc] (ecmascript)");
+;
 ;
 ;
 ;
@@ -150,15 +159,97 @@ const getCompanion = async (id)=>{
     if (error) return console.log(error);
     return data[0];
 };
+const addToSessionHistory = async (companionId)=>{
+    const { userId } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$nextjs$2f$dist$2f$esm$2f$app$2d$router$2f$server$2f$auth$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["auth"])();
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from('session_history').insert({
+        companion_id: companionId,
+        user_id: userId
+    });
+    if (error) throw new Error(error.message);
+    return data;
+};
+const getRecentSessions = async (limit = 10)=>{
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from('session_history').select(`companions:companion_id (*)`).order('created_at', {
+        ascending: false
+    }).limit(limit);
+    if (error) throw new Error(error.message);
+    return data.map(({ companions })=>companions);
+};
+const getUserSessions = async (userId, limit = 10)=>{
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from('session_history').select(`companions:companion_id (*)`).eq('user_id', userId).order('created_at', {
+        ascending: false
+    }).limit(limit);
+    if (error) throw new Error(error.message);
+    return data.map(({ companions })=>companions);
+};
+const getUserCompanions = async (userId)=>{
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from('companions').select().eq('author', userId);
+    if (error) throw new Error(error.message);
+    return data;
+};
+const addBookmark = async (companionId, path)=>{
+    const { userId } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$nextjs$2f$dist$2f$esm$2f$app$2d$router$2f$server$2f$auth$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["auth"])();
+    if (!userId) return;
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from("bookmarks").insert({
+        companion_id: companionId,
+        user_id: userId
+    });
+    if (error) {
+        throw new Error(error.message);
+    }
+    // Revalidate the path to force a re-render of the page
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["revalidatePath"])(path);
+    return data;
+};
+const removeBookmark = async (companionId, path)=>{
+    const { userId } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$nextjs$2f$dist$2f$esm$2f$app$2d$router$2f$server$2f$auth$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["auth"])();
+    if (!userId) return;
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from("bookmarks").delete().eq("companion_id", companionId).eq("user_id", userId);
+    if (error) {
+        throw new Error(error.message);
+    }
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["revalidatePath"])(path);
+    return data;
+};
+const getBookmarkedCompanions = async (userId)=>{
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from("bookmarks").select(`companions:companion_id (*)`) // Notice the (*) to get all the companion data
+    .eq("user_id", userId);
+    if (error) {
+        throw new Error(error.message);
+    }
+    // We don't need the bookmarks data, so we return only the companions
+    return data.map(({ companions })=>companions);
+};
 ;
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ensureServerEntryExports"])([
     createCompanion,
     getAllCompanions,
-    getCompanion
+    getCompanion,
+    addToSessionHistory,
+    getRecentSessions,
+    getUserSessions,
+    getUserCompanions,
+    addBookmark,
+    removeBookmark,
+    getBookmarkedCompanions
 ]);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(createCompanion, "7fa0ee05fef7917ebe176b3180dcae92f9daecd997", null);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getAllCompanions, "7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7", null);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getCompanion, "7faf38d0c06bfe309988e06f76f373af56089c8fed", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(addToSessionHistory, "7f213816560294baa41f06e9f54700a51bff4fb9e6", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getRecentSessions, "7f94de73e129f506cb16707f9ca1b7926f88c7f3f9", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getUserSessions, "7f4a0d95a31319119375439d32d475c248c2894018", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getUserCompanions, "7f8fb7a67a27db6952c3f749a830a97d6ba1b2bb4a", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(addBookmark, "7f91bb29f8ca73721d6cfc7936f6491877a74ea2b6", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(removeBookmark, "7f3f2a007e749f9cc6430c9fc98b9b5bbad7c4bd6f", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getBookmarkedCompanions, "7f757a26b93efffcb69538f6402cb5bd39cb3cbf8e", null);
 }}),
 "[project]/app/favicon.ico.mjs { IMAGE => \"[project]/app/favicon.ico (static in ecmascript)\" } [app-rsc] (structured image object, ecmascript, Next.js server component)": ((__turbopack_context__) => {
 

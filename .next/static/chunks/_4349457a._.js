@@ -79,7 +79,10 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                 "CompanionComponent.useEffect.onCallStart": ()=>setCallStatus("ACTIVE")
             }["CompanionComponent.useEffect.onCallStart"];
             const onCallEnd = {
-                "CompanionComponent.useEffect.onCallEnd": ()=>setCallStatus("FINISHED")
+                "CompanionComponent.useEffect.onCallEnd": ()=>{
+                    setCallStatus("FINISHED");
+                // addToSessionHistory(companionId)
+                }
             }["CompanionComponent.useEffect.onCallEnd"];
             const onMessage = {
                 "CompanionComponent.useEffect.onMessage": (message)=>{
@@ -174,12 +177,12 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                             className: "max-sm:w-fit"
                                         }, void 0, false, {
                                             fileName: "[project]/components/CompanionComponent.tsx",
-                                            lineNumber: 105,
+                                            lineNumber: 109,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 103,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -191,18 +194,18 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                             className: "companion-lottie"
                                         }, void 0, false, {
                                             fileName: "[project]/components/CompanionComponent.tsx",
-                                            lineNumber: 109,
+                                            lineNumber: 113,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 108,
+                                        lineNumber: 112,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/CompanionComponent.tsx",
-                                lineNumber: 98,
+                                lineNumber: 102,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -210,13 +213,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                 children: name
                             }, void 0, false, {
                                 fileName: "[project]/components/CompanionComponent.tsx",
-                                lineNumber: 117,
+                                lineNumber: 121,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/CompanionComponent.tsx",
-                        lineNumber: 97,
+                        lineNumber: 101,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -233,7 +236,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                         className: "rounded-lg"
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 122,
+                                        lineNumber: 126,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -241,13 +244,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                         children: userName
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 123,
+                                        lineNumber: 127,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/CompanionComponent.tsx",
-                                lineNumber: 121,
+                                lineNumber: 125,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -262,7 +265,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                         height: 36
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 132,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -270,13 +273,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                         children: isMuted ? 'Turn on microphone' : 'Turn off microphone'
                                     }, void 0, false, {
                                         fileName: "[project]/components/CompanionComponent.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 133,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/CompanionComponent.tsx",
-                                lineNumber: 127,
+                                lineNumber: 131,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -285,19 +288,19 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                 children: callStatus === "ACTIVE" ? "End Session" : callStatus === "CONNECTING" ? 'Connecting' : 'Start Session'
                             }, void 0, false, {
                                 fileName: "[project]/components/CompanionComponent.tsx",
-                                lineNumber: 133,
+                                lineNumber: 137,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/CompanionComponent.tsx",
-                        lineNumber: 120,
+                        lineNumber: 124,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/CompanionComponent.tsx",
-                lineNumber: 96,
+                lineNumber: 100,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -316,7 +319,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/components/CompanionComponent.tsx",
-                                    lineNumber: 149,
+                                    lineNumber: 153,
                                     columnNumber: 33
                                 }, this);
                             } else {
@@ -329,33 +332,33 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/components/CompanionComponent.tsx",
-                                    lineNumber: 158,
+                                    lineNumber: 162,
                                     columnNumber: 35
                                 }, this);
                             }
                         })
                     }, void 0, false, {
                         fileName: "[project]/components/CompanionComponent.tsx",
-                        lineNumber: 145,
+                        lineNumber: 149,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "transcript-fade"
                     }, void 0, false, {
                         fileName: "[project]/components/CompanionComponent.tsx",
-                        lineNumber: 165,
+                        lineNumber: 169,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/CompanionComponent.tsx",
-                lineNumber: 144,
+                lineNumber: 148,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/CompanionComponent.tsx",
-        lineNumber: 95,
+        lineNumber: 99,
         columnNumber: 9
     }, this);
 };
