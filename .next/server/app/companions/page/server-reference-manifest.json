@@ -55,6 +55,17 @@
         "app/companions/page": "rsc"
       }
     },
+    "7faf38d0c06bfe309988e06f76f373af56089c8fed": {
+      "workers": {
+        "app/companions/page": {
+          "moduleId": "[project]/.next-internal/server/app/companions/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/lib/actions/companion.actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/companions/page": "rsc"
+      }
+    },
     "7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7": {
       "workers": {
         "app/companions/page": {

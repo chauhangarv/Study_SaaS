@@ -98,6 +98,7 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 {
 __turbopack_context__.s({
     "cn": (()=>cn),
+    "configureAssistant": (()=>configureAssistant),
     "getSubjectColor": (()=>getSubjectColor)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-client] (ecmascript)");
@@ -111,6 +112,50 @@ function cn(...inputs) {
 }
 const getSubjectColor = (subject)=>{
     return __TURBOPACK__imported__module__$5b$project$5d2f$constants$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["subjectsColors"][subject];
+};
+const configureAssistant = (voice, style)=>{
+    const voiceId = __TURBOPACK__imported__module__$5b$project$5d2f$constants$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["voices"][voice][style] || "sarah";
+    const vapiAssistant = {
+        name: "Companion",
+        firstMessage: "Hello, let's start the session. Today we'll be talking about {{topic}}.",
+        transcriber: {
+            provider: "deepgram",
+            model: "nova-3",
+            language: "en"
+        },
+        voice: {
+            provider: "11labs",
+            voiceId: voiceId,
+            stability: 0.4,
+            similarityBoost: 0.8,
+            speed: 1,
+            style: 0.5,
+            useSpeakerBoost: true
+        },
+        model: {
+            provider: "openai",
+            model: "gpt-4",
+            messages: [
+                {
+                    role: "system",
+                    content: `You are a highly knowledgeable tutor teaching a real-time voice session with a student. Your goal is to teach the student about the topic and subject.
+
+                    Tutor Guidelines:
+                    Stick to the given topic - {{ topic }} and subject - {{ subject }} and teach the student about it.
+                    Keep the conversation flowing smoothly while maintaining control.
+                    From time to time make sure that the student is following you and understands you.
+                    Break down the topic into smaller parts and teach the student one part at a time.
+                    Keep your style of conversation {{ style }}.
+                    Keep your responses short, like in a real voice conversation.
+                    Do not include any special characters in your responses - this is a voice conversation.
+              `
+                }
+            ]
+        },
+        clientMessages: [],
+        serverMessages: []
+    };
+    return vapiAssistant;
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);

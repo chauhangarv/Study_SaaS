@@ -105,9 +105,10 @@ const createSupabaseClient = ()=>{
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-/* __next_internal_action_entry_do_not_use__ [{"7fa0ee05fef7917ebe176b3180dcae92f9daecd997":"createCompanion","7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7":"getAllCompanions"},"",""] */ __turbopack_context__.s({
+/* __next_internal_action_entry_do_not_use__ [{"7fa0ee05fef7917ebe176b3180dcae92f9daecd997":"createCompanion","7faf38d0c06bfe309988e06f76f373af56089c8fed":"getCompanion","7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7":"getAllCompanions"},"",""] */ __turbopack_context__.s({
     "createCompanion": (()=>createCompanion),
-    "getAllCompanions": (()=>getAllCompanions)
+    "getAllCompanions": (()=>getAllCompanions),
+    "getCompanion": (()=>getCompanion)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/server-reference.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$app$2d$render$2f$encryption$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/app-render/encryption.js [app-rsc] (ecmascript)");
@@ -143,13 +144,21 @@ const getAllCompanions = async ({ limit = 10, page = 1, subject, topic })=>{
     if (error) throw new Error(error.message);
     return companions;
 };
+const getCompanion = async (id)=>{
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createSupabaseClient"])();
+    const { data, error } = await supabase.from('companions').select().eq('id', id);
+    if (error) return console.log(error);
+    return data[0];
+};
 ;
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ensureServerEntryExports"])([
     createCompanion,
-    getAllCompanions
+    getAllCompanions,
+    getCompanion
 ]);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(createCompanion, "7fa0ee05fef7917ebe176b3180dcae92f9daecd997", null);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getAllCompanions, "7fdc7fe651cbd11892c6da2baf1fb35862bbead7a7", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getCompanion, "7faf38d0c06bfe309988e06f76f373af56089c8fed", null);
 }}),
 "[project]/app/favicon.ico.mjs { IMAGE => \"[project]/app/favicon.ico (static in ecmascript)\" } [app-rsc] (structured image object, ecmascript, Next.js server component)": ((__turbopack_context__) => {
 
